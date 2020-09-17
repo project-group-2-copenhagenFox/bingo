@@ -12,8 +12,9 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div v-for="(player, i) in players" :key="i">
-      <div class="col-6 col-sm-3">.<Board :player="player"/></div>
+    <div v-for="(board, i) in boards" :key="i">
+      <!-- {{ boardStatus }} -->
+      <div class="col-6 col-sm-3">.<Board :board="board"/></div>
     </div>
   </div>
 </div>
@@ -29,6 +30,18 @@ export default {
   data () {
     return {
       players: this.$store.state.players
+    }
+  },
+  computed: {
+    boards () {
+      console.log(this.$store.state.boards)
+      return this.$store.state.boards
+    }
+  },
+  sockets: {
+      board (payload) {
+      console.log(payload)
+      this.$store.commit('setBoards', payload)
     }
   },
   components: {
