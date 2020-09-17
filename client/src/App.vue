@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav class="navbar navbar-light bg-primary mb-3">
+      <span class="navbar-brand mb-0 h1">BingoBoard</span>
+    </nav>
     <router-view/>
   </div>
 </template>
