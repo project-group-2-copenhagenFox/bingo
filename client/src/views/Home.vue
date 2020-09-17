@@ -40,9 +40,13 @@ export default {
   },
   sockets: {
       board (payload) {
-      console.log(payload)
+      console.log(payload, `<<<<<<< board`)
       this.$store.commit('setBoards', payload)
-    }
+    },
+      saveboard (payload) {
+        console.log(payload, `<<<<<<< saveboard`)
+        this.$store.commit('setBoards', payload)
+      }
   },
   components: {
     Board

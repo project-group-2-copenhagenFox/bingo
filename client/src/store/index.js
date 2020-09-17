@@ -11,7 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setBoards (state, payload) {
-      state.boards = [...state.boards, payload]
+      state.boards = payload
     }
   },
   actions: {

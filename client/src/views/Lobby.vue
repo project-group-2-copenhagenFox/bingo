@@ -26,14 +26,20 @@ export default {
     board (payload) {
       console.log(payload)
       this.$store.commit('setBoards', payload)
-    }
+    },
+      saveboard (payload) {
+       console.log(payload, `<<<<<<< saveboard`)
+        this.$store.commit('setBoards', payload)
+      }
   },
   methods: {
     sendNickname () {
       this.$socket.emit('nickName', { nickName: this.nickName})
+      // this.$socket.emit('saveboards')
       localStorage.setItem('nickname', this.nickName)
       this.$router.push({ name: 'Home' })
-    }
+    },
+
   }
 }
 </script>
