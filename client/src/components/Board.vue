@@ -1,12 +1,16 @@
 <template>
 <div>
     <div class="bingo-board">
-        <div v-for="(n, i) in 5" :key="i">
-        <div v-for="(n, j) in 5" :key="j">
-            <Cell @click="testClick(i, j)" :value="board[i][j]"></Cell>
+              <!-- {{board.cell}} -->
+        <!-- <div v-for="(n, i) in 5" :key="i">
+          <div v-for="(i, j) in 5" :key="j">
+              <Cell @click="testClick(i, j)" :value="board.cell[j].value"></Cell>
+          </div>
+        </div> -->
+        <div v-for="(n, i) in board.cell" :key="i"  class="flex-wrap">
+          <Cell @click="testClick(i)" :value="board.cell[i].value"></Cell>
         </div>
-        </div>
-        <h2 class="bg-danger align-self-center">{{ player }}</h2>
+        <h2 class="bg-danger align-self-center">{{ board.nickName }}</h2>
     </div>
 </div>
 
@@ -19,7 +23,7 @@ export default {
   name: 'Board',
   data () {
     return {
-      board: [
+      board1: [
         ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', 99, '', ''],
@@ -28,7 +32,7 @@ export default {
       ]
     }
   },
-  props: ['player'],
+  props: ['board'],
   components: {
     Cell
   },
@@ -44,7 +48,7 @@ export default {
 .bingo-board {
   display: flex;
   flex-wrap: wrap;
-  width: 304px;
-  height: 304px;
+  width: 250px;
+  height: 250px;
 }
 </style>
