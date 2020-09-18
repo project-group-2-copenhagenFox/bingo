@@ -7,8 +7,11 @@
               <Cell @click="testClick(i, j)" :value="board.cell[j].value"></Cell>
           </div>
         </div> -->
-        <div v-for="(n, i) in board.cell" :key="i"  class="flex-wrap">
-          <Cell @click="testClick(i)" :value="board.cell[i].value"></Cell>
+        <div v-for="(n, i) in board.cell" :key="i" class="flex-wrap">
+          <Cell 
+            @click="testClick(i)" 
+            :valueid="board.cell[i]"
+            :nickname="board.nickName"></Cell>
         </div>
         <h2 class="bg-danger align-self-center">{{ board.nickName }}</h2>
     </div>
@@ -35,11 +38,6 @@ export default {
   props: ['board'],
   components: {
     Cell
-  },
-  methods: {
-    testClick (x, y) {
-      console.log('cell di click')
-    }
   }
 }
 </script>

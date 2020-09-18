@@ -48,11 +48,23 @@ io.on('connection',(socket) => {
         
         socket.emit('board', saveboard)
         socket.broadcast.emit('saveboard', saveboard)
-        
     })
     // socket.on('saveboards', function(payload) {
     //     socket.broadcast.emit('saveboard', saveboard)
     // })
+
+    socket.on('changeStatus', function(id) {
+        console.log(id)
+        saveboard.forEach(cellObj => {
+            cellObj.cell.forEach(item => {
+                if(item.id == id) {
+                    item.status = true
+                }
+            })
+        })
+
+        socket.broadcast.emit('saveboard', saveboard)
+    })
 });
 
 

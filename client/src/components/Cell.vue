@@ -1,13 +1,28 @@
 <template>
-    <div class="cell">
-        <span v-if="value !== ''">{{ value }}</span>
+    <div class="cell" @click="testClick(valueid)">
+        <span 
+          v-if="valueid.status !== true && nickname == localStorage.nickname"
+          >{{ valueid.value }}</span>
     </div>
 </template>
 
 <script>
 export default {
   props: {
-    value: Number
+    valueid: {},
+    nickname: ''
+  },
+  methods: {
+    testClick (valueid) {
+      //ganti status di client
+      console.log(valueid, '<<<< valueid di testclick')
+      if (localStorage.nickname == this.nickname) {
+        this.$store.commit('changeStatus', valueid.id)
+        //id kirim ke server
+        this.$socket.emit('changeStatus', valueid.id)
+        console.log('cell di click', id)
+      }
+    }
   }
 }
 </script>
