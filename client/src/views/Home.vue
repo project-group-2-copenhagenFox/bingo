@@ -2,13 +2,13 @@
 <div>
   <div class="row">
     <div class="col">
-      <div class="justify-content-center">Timeout: <h1>00:05</h1></div>
+      <div class="justify-content-center">Score: <h1>{{score}}</h1></div>
     </div>
     <div class="col">
-      <div class="justify-content-center">Random: <h1></h1></div>
+      <div class="justify-content-center">Random: <h1>{{ranNum}}</h1></div>
     </div>
     <div class="col">
-      <div class="justify-content-center"><button class="btn-lg btn-success">BINGO</button></div>
+      <div class="justify-content-center"><button v-if="button===true" @click.prevent="sendScore" class="btn-lg btn-success">Finish</button></div>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -28,7 +28,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      players: this.$store.state.players
+      players: this.$store.state.players,
+      button:false 
     }
   },
   computed: {
@@ -36,6 +37,12 @@ export default {
       console.log(this.$store.state.boards)
       return this.$store.state.boards
     },
+    ranNum(){
+      return this.$store.state.ranNum
+    },
+    score(){
+      return this.$store.state.score
+    }
 
   },
   sockets: {
@@ -49,11 +56,21 @@ export default {
     },
       randomNumber (payload) {
         console.log(payload, '<<<<<<<<randomNmber')
-        // this.$store.commit('setRanNum', payload)
+        this.$store.commit('setRanNum', payload)
+      },
+      toogleButton(){
+        this.button = true
       }
   },
   components: {
     Board
+  },
+  methods:{
+    sendScore(){
+      console.log( { nickName: localStorage.nickname, count: this.score}, `<<<<<<< klik finsih`)
+      this.$socket.emit('score', { nickName: localStorage.nickname, count: this.score})
+      
+    }
   }
 }
 </script>

@@ -2,8 +2,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-let ranNum = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
-    l = 0
+let finalScore = []
 
 function generateBoard(){
         let nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
@@ -25,11 +24,17 @@ function generateBoard(){
     return board
 }
 
+let ranNum = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+    l = 0
+
 function sendRandNum() {
     let k = ranNum.length
-    l = Math.floor(Math.random() * (k+1));
-    ranNum.splice(l,1);
-    return ranNum[l]
+    let output = 0
+    l = Math.ceil(Math.random() * (k));
+    output = ranNum[l-1]
+    ranNum.splice(l-1,1);
+    console.log(output, ranNum, l, `<<<<<<sendRandNumserver`)
+    return output
 }
 
 
@@ -65,7 +70,7 @@ io.on('connection',(socket) => {
     // })
 
     socket.on('changeStatus', function(num) {
-        console.log(num, '<<<<<<changestatus server')
+        // console.log(num, '<<<<<<changestatus server')
         saveboard.forEach(cellObj => {
             cellObj.cell.forEach(item => {
                 if(item.value === num) {
@@ -73,10 +78,25 @@ io.on('connection',(socket) => {
                 }
             })
         })
-        let senNumber = sendRandNum()
-        socket.broadcast.emit('randomNumber', senNumber)
-        socket.emit('randomNumber', senNumber)
         socket.broadcast.emit('saveboard', saveboard)
+        let senNumber = sendRandNum()
+        if(senNumber){
+            socket.broadcast.emit('randomNumber', senNumber)
+            socket.emit('randomNumber', senNumber)
+        }else{
+            socket.broadcast.emit('toogleButton')
+            socket.emit('toogleButton')
+        }
+        
+     
+    })
+
+    socket.on('score', function(payload){
+        console.log(finalScore)
+        finalScore.push(payload)
+        finalScore.sort((a,b) => (a.count > b.count) ? 1 : ((b.count > a.count) ? -1 : 0));
+        console.log(finalScore)
+     
     })
 });
 
