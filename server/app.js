@@ -37,16 +37,16 @@ function sendRandNum() {
     return output
 }
 
-
-let totalPlayers = 3
-for (let i = 0; i < totalPlayers.length; i++){
-    console.log(board[i])
-}
-
-
 let nickNames = []
 let saveboard = []
 
+function resetFunction() {
+    nickNames = []
+    saveboard = []
+    finalScore = []
+    ranNum = [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+    l = 0
+}
 
 io.on('connection',(socket) => {
     console.log('a user connected');
@@ -93,6 +93,11 @@ io.on('connection',(socket) => {
         console.log(finalScore)
         socket.broadcast.emit('winner', finalScore)
         socket.emit('winner', finalScore)
+        // resetFunction()
+    })
+
+    socket.on('resetBoard', function(_) {
+        resetFunction()
     })
 });
 
