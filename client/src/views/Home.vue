@@ -5,7 +5,7 @@
       <div class="justify-content-center">Timeout: <h1>00:05</h1></div>
     </div>
     <div class="col">
-      <div class="justify-content-center">Random: <h1>75</h1></div>
+      <div class="justify-content-center">Random: <h1></h1></div>
     </div>
     <div class="col">
       <div class="justify-content-center"><button class="btn-lg btn-success">BINGO</button></div>
@@ -35,7 +35,8 @@ export default {
     boards () {
       console.log(this.$store.state.boards)
       return this.$store.state.boards
-    }
+    },
+
   },
   sockets: {
       board (payload) {
@@ -45,6 +46,10 @@ export default {
       saveboard (payload) {
         console.log(payload, `<<<<<<< saveboard`)
         this.$store.commit('setBoards', payload)
+    },
+      randomNumber (payload) {
+        console.log(payload, '<<<<<<<<randomNmber')
+        // this.$store.commit('setRanNum', payload)
       }
   },
   components: {

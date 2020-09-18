@@ -2,8 +2,11 @@ const app = require('express')();
 const http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+let ranNum = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+    l = 0
+
 function generateBoard(){
-        var nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+        let nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
         board = [],
         i = 25,
         j = 0
@@ -22,6 +25,13 @@ function generateBoard(){
     return board
 }
 
+function sendRandNum() {
+    let k = ranNum.length
+    l = Math.floor(Math.random() * (k+1));
+    ranNum.splice(l,1);
+    return ranNum[l]
+}
+
 
 let totalPlayers = 3
 for (let i = 0; i < totalPlayers.length; i++){
@@ -35,6 +45,7 @@ let saveboard = []
 
 io.on('connection',(socket) => {
     console.log('a user connected');
+    // console.log(sendRandNum())
 
     socket.on('nickName', function(payload) {
         let newBoard = {
@@ -53,16 +64,18 @@ io.on('connection',(socket) => {
     //     socket.broadcast.emit('saveboard', saveboard)
     // })
 
-    socket.on('changeStatus', function(id) {
-        console.log(id)
+    socket.on('changeStatus', function(num) {
+        console.log(num, '<<<<<<changestatus server')
         saveboard.forEach(cellObj => {
             cellObj.cell.forEach(item => {
-                if(item.id == id) {
+                if(item.value === num) {
                     item.status = true
                 }
             })
         })
-
+        let senNumber = sendRandNum()
+        socket.broadcast.emit('randomNumber', senNumber)
+        socket.emit('randomNumber', senNumber)
         socket.broadcast.emit('saveboard', saveboard)
     })
 });

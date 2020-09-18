@@ -16,12 +16,12 @@ export default new Vuex.Store({
       state.boards = payload,
       state.nickName = payload.nickName
     },
-    changeStatus (state, id) {
+    changeStatus (state, num) {
       state.boards.forEach(cellObj => {
         console.log(cellObj, '<<<< cell')
         cellObj.cell.forEach(item => {
           console.log(item, '<<<< item')
-          if (item.id == id) {
+          if (item.value == num) {
             item.status = true
           }
         })
