@@ -15,6 +15,17 @@ export default new Vuex.Store({
     setBoards (state, payload) {
       state.boards = payload,
       state.nickName = payload.nickName
+    },
+    changeStatus (state, id) {
+      state.boards.forEach(cellObj => {
+        console.log(cellObj, '<<<< cell')
+        cellObj.cell.forEach(item => {
+          console.log(item, '<<<< item')
+          if (item.id == id) {
+            item.status = true
+          }
+        })
+      })
     }
   },
   actions: {

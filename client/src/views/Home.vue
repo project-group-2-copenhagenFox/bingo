@@ -13,7 +13,6 @@
   </div>
   <div class="row justify-content-center">
     <div v-for="(board, i) in boards" :key="i">
-      <!-- {{ boardStatus }} -->
       <div class="col-6 col-sm-3">.<Board :board="board"/></div>
     </div>
   </div>

@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div class="bingo-board bg-warning" v-if="nickName == localNickname">
+    <div class="bingo-board">
         <div v-for="(n, i) in board.cell" :key="i"  class="flex-wrap">
-          <Cell :value="board.cell[i].value"></Cell>
+          <Cell @click="testClick(i)" :valueid="board.cell[i]" :nickname="board.nickName"></Cell>
         </div>
         <h2 class="bg-danger align-self-center">{{ board.nickName }}</h2>
     </div>
@@ -23,14 +23,17 @@ export default {
         ['', '', 99, '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', '']
-      ],
-      nickName: '',
-      localNickname: this.$store.state.localNickname
+      ]
     }
   },
   props: ['board'],
   components: {
     Cell
+  },
+  methods: {
+    testClick (x, y) {
+      console.log('cell di click')
+    }
   }
 }
 </script>
