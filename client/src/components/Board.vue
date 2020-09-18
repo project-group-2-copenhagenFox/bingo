@@ -29,11 +29,6 @@ export default {
   props: ['board'],
   components: {
     Cell
-  },
-  methods: {
-    testClick (x, y) {
-      console.log('cell di click')
-    }
   }
 }
 </script>

@@ -48,7 +48,6 @@ io.on('connection',(socket) => {
         
         socket.emit('board', saveboard)
         socket.broadcast.emit('saveboard', saveboard)
-        
     })
     // socket.on('saveboards', function(payload) {
     //     socket.broadcast.emit('saveboard', saveboard)

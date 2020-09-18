@@ -14,6 +14,7 @@ export default {
   },
   methods: {
     testClick (valueid) {
+      //ganti status di client
       console.log(valueid, '<<<< valueid di testclick')
       if (localStorage.nickname == this.nickname) {
         this.$store.commit('changeStatus', valueid.id)
