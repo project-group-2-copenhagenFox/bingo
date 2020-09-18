@@ -12,6 +12,17 @@ export default new Vuex.Store({
   mutations: {
     setBoards (state, payload) {
       state.boards = payload
+    },
+    changeStatus (state, id) {
+      state.boards.forEach(cellObj => {
+        console.log(cellObj, '<<<< cell')
+        cellObj.cell.forEach(item => {
+          console.log(item, '<<<< item')
+          if (item.id == id) {
+            item.status = true
+          }
+        })
+      })
     }
   },
   actions: {
