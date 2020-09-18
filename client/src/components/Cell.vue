@@ -1,7 +1,7 @@
 <template>
     <div class="cell" @click="testClick(valueid)">
         <span 
-          v-if="valueid.status !== true && nickname == localStorage.nickname"
+          v-if="valueid.status !== true"
           >{{ valueid.value }}</span>
     </div>
 </template>
@@ -20,7 +20,7 @@ export default {
         this.$store.commit('changeStatus', valueid.id)
         //id kirim ke server
         this.$socket.emit('changeStatus', valueid.id)
-        console.log('cell di click', id)
+        // console.log('cell di click', id)
       }
     }
   }
