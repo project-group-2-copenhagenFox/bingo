@@ -80,15 +80,10 @@ io.on('connection',(socket) => {
         })
         socket.broadcast.emit('saveboard', saveboard)
         let senNumber = sendRandNum()
-        if(senNumber){
-            socket.broadcast.emit('randomNumber', senNumber)
-            socket.emit('randomNumber', senNumber)
-        }else{
-            socket.broadcast.emit('toogleButton')
-            socket.emit('toogleButton')
-        }
-        
-     
+        // socket.broadcast.emit('toogleButton')
+        // socket.emit('toogleButton')
+        socket.broadcast.emit('randomNumber', senNumber)
+        socket.emit('randomNumber', senNumber)
     })
 
     socket.on('score', function(payload){
@@ -96,7 +91,8 @@ io.on('connection',(socket) => {
         finalScore.push(payload)
         finalScore.sort((a,b) => (a.count > b.count) ? 1 : ((b.count > a.count) ? -1 : 0));
         console.log(finalScore)
-     
+        socket.broadcast.emit('winner', finalScore)
+        socket.emit('winner', finalScore)
     })
 });
 
