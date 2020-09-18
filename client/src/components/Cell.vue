@@ -16,10 +16,11 @@ export default {
     testClick (valueid) {
       //ganti status di client
       console.log(valueid, '<<<< valueid di testclick')
-      if (localStorage.nickname == this.nickname) {
+      if (localStorage.nickname == this.nickname && valueid.value === this.$store.state.ranNum) {
         this.$store.commit('changeStatus', valueid.value)
         //id kirim ke server
         this.$socket.emit('changeStatus', valueid.value)
+        this.$store.commit('nambah')
         // console.log('cell di click', id)
       }
     }
