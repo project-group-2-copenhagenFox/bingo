@@ -17,9 +17,9 @@ export default {
       //ganti status di client
       console.log(valueid, '<<<< valueid di testclick')
       if (localStorage.nickname == this.nickname) {
-        this.$store.commit('changeStatus', valueid.id)
+        this.$store.commit('changeStatus', valueid.value)
         //id kirim ke server
-        this.$socket.emit('changeStatus', valueid.id)
+        this.$socket.emit('changeStatus', valueid.value)
         // console.log('cell di click', id)
       }
     }
