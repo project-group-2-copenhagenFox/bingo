@@ -6,20 +6,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      nickName: this.$store.state.nickName
-    }
-  },
   props: {
     value: Number
   },
   methods: {
-    myBoard () {
-      if (localStorage.nickname === this.nickName) {
-        return true
-      }
-    },
     testClick (value) {
       console.log('cell di click', value)
     }
