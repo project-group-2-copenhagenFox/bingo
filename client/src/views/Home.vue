@@ -23,13 +23,15 @@
 <script>
 // @ is an alias to /src
 import Board from '@/components/Board.vue'
+import swal from 'sweetalert'
 
 export default {
   name: 'Home',
   data () {
     return {
       players: this.$store.state.players,
-      button:false 
+      button:false,
+      winner: ''
     }
   },
   computed: {
@@ -57,9 +59,18 @@ export default {
       randomNumber (payload) {
         console.log(payload, '<<<<<<<<randomNmber')
         this.$store.commit('setRanNum', payload)
+        if (!payload) {
+          this.$socket.emit('score', { nickName: localStorage.nickname, count: this.score})
+        }
       },
       toogleButton(){
         this.button = true
+      },
+      winner (payload) {
+        console.log(payload)
+        // this.$store.commit('showWinner', payload[payload.length - 1].nickName)
+        this.winner = payload[payload.length - 1].nickName
+        swal("Good job!", `The winner is ${this.winner}`, "success");
       }
   },
   components: {
