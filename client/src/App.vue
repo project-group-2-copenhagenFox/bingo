@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-light bg-primary mb-3">
-      <span class="navbar-brand mb-0 h1">BingoBoard</span>
+      <span class="navbar-brand mb-0 h1">BingoBoard Yeay!</span>
     </nav>
     <router-view/>
   </div>

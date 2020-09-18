@@ -70,7 +70,14 @@ export default {
         console.log(payload)
         // this.$store.commit('showWinner', payload[payload.length - 1].nickName)
         this.winner = payload[payload.length - 1].nickName
-        swal("Good job!", `The winner is ${this.winner}`, "success");
+        swal("Good job!", `The winner is ${this.winner}`, "success")
+        .then((_) => {
+          this.$router.push({ name: 'Lobby'})
+          localStorage.clear()
+          this.$store.state.ranNum = 9
+          this.$store.state.score = 0
+          this.$socket.emit('resetBoard')
+        });
       }
   },
   components: {
